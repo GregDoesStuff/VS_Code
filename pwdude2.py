@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 import random
 import string
 import datetime
@@ -37,7 +38,4 @@ with open("passwords.txt", "w") as file:
 # Print a message indicating that the passwords are ready
 print("Thank you! Your passwords are ready and have been saved to passwords.txt")
     
-#33/5/23 - In this updated code, we use try-except blocks to catch potential ValueError
-#3exceptions that could occur if the user enters an invalid number for either the number
-# of passwords or the length of the password. If such an exception occurs, the code prints
-# a message asking the user to enter a valid number and exits the program using the exit() function.
+#33/5/23 - Added shebang for Linux
