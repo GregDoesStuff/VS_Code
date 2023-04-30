@@ -12,7 +12,10 @@ for ($i = [int]($start_ip.Substring($start_ip.LastIndexOf(".") + 1)); $i -le [in
         Write-Host "$ip_address is up"
         
         # Loop through ports 1-100 and test each one
-        for ($port = 1; $port -le 100; $port++) {
+        $ports = 1..100
+        $count = 0
+        foreach ($port in $ports) {
+            $count++
             $result = Test-NetConnection -ComputerName $ip_address -Port $port -WarningAction SilentlyContinue | Out-Null
             if ($result.TcpTestSucceeded) {
                 Write-Host "Port $port is open on $ip_address"
@@ -20,6 +23,10 @@ for ($i = [int]($start_ip.Substring($start_ip.LastIndexOf(".") + 1)); $i -le [in
             elseif ($result.UdpTestSucceeded) {
                 Write-Host "Port $port is listening on $ip_address"
             }
+            
+            # Update the progress bar
+            $progress = [int]($count * 100 / $ports.Count)
+            Write-Progress -Activity "Testing ports on $ip_address" -PercentComplete $progress
         }
     }
     
