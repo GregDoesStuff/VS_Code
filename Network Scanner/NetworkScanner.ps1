@@ -13,7 +13,7 @@ for ($i = [int]($start_ip.Substring($start_ip.LastIndexOf(".") + 1)); $i -le [in
         
         # Loop through ports 1-100 and test each one
         for ($port = 1; $port -le 100; $port++) {
-            $result = Test-NetConnection -ComputerName $ip_address -Port $port -InformationLevel Quiet 2>$null
+            $result = Test-NetConnection -ComputerName $ip_address -Port $port -InformationLevel Quiet -ErrorAction SilentlyContinue
             if ($result -and $result.TcpTestSucceeded) {
                 Write-Host "Port $port is open on $ip_address"
             }
