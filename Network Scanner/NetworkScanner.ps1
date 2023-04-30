@@ -13,21 +13,24 @@ for ($i = [int]($start_ip.Substring($start_ip.LastIndexOf(".") + 1)); $i -le [in
         Write-Host "$ip_address is up"
         
         # Loop through ports 1-100 and test each one
-        $count = 0
-        foreach ($port in (1..$total_ports)) {
-            $count++
-            $result = Test-NetConnection -ComputerName $ip_address -Port $port -WarningAction SilentlyContinue | Out-Null
-            if ($result.TcpTestSucceeded) {
-                Write-Host "Port $port is open on $ip_address"
-            }
-            elseif ($result.UdpTestSucceeded) {
-                Write-Host "Port $port is listening on $ip_address"
-            }
-            
-            # Update the port scan progress bar
-            $port_progress = [int]($count * 100 / $total_ports)
-            Write-Progress -Activity "Testing ports on $ip_address" -PercentComplete $port_progress
-        }
+	    $ports = 1..100
+	    $total_ports = $ports.Count
+	    $count = 0
+	    foreach ($port in $ports) {
+    		$count++
+    		$result = Test-NetConnection -ComputerName $ip_address -Port $port -WarningAction SilentlyContinue | Out-Null
+    		if ($result.TcpTestSucceeded) {
+        		Write-Host "Port $port is open on $ip_address"
+    		}
+    		elseif ($result.UdpTestSucceeded) {
+        		Write-Host "Port $port is listening on $ip_address"
+    		}
+
+    		# Update the progress bar for port scanning
+    		$port_progress = [int]($count * 100 / $total_ports)
+    		$ip_progress = [int](($i - [int]($start_ip.Substring($start_ip.LastIndexOf(".") + 1)) + 1) * 100 / $total_ips)
+    		Write-Progress -Activity "Testing ports on $ip_address" -PercentComplete $port_progress -Status "Scanning IP addresses" -CurrentOperation "$ip_address" -PercentComplete $ip_progress
+	    }
     }
     
     # Update the IP scan progress bar
