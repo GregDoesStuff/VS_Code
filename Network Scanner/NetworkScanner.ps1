@@ -43,7 +43,7 @@ foreach ($ip in $up_ips) {
     }
     
     # Write port scan results for the current IP address to file
-    Write-Host "Results for $ip:"
+    Write-Host "Results for ${ip}:"
     Get-NetTCPConnection -ComputerName $ip -State Listen | Select-Object LocalAddress, LocalPort, RemoteAddress, RemotePort | Sort-Object LocalPort | Format-Table -AutoSize
     Write-Host ""
 }
