@@ -29,7 +29,7 @@ if ($up_ips.Count -eq 0) {
 else {
     # Loop through the up IP addresses and scan each one for open ports
     foreach ($ip in $up_ips) {
-        Write-Host "Results for $ip:"
+        Write-Host "Results for ${ip}:"
         
         # Loop through ports 1-100 and test each one
         $ports = 1..100
