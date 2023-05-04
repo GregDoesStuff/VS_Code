@@ -24,7 +24,7 @@ for ($i = [int]($start_ip.Substring($start_ip.LastIndexOf(".") + 1)); $i -le [in
 # Loop through the IP addresses that are up and scan their ports
 foreach ($ip in $up_ips) {
     Write-Host "Scanning ports for $ip"
-    Write-Host "Results for $ip:"
+    Write-Host "Results for ${ip}:"
     
     # Loop through ports 1-100 and test each one
 	$ports = 1..100
