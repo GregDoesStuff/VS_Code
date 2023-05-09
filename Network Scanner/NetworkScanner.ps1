@@ -49,5 +49,8 @@ else {
             $port_progress = [int]($count * 100 / $total_ports)
             Write-Progress -Activity "Scanning IP addresses and ports" -PercentComplete $ip_progress -Status "Scanning IP address $ip, Testing port $port" -CurrentOperation "Testing port $port on IP address $ip" -PercentComplete $port_progress
         }
+        
+        # Notify the user when port scanning for an IP address is complete
+        Write-Host "Port scanning for IP address $ip is complete."
     }
 }
